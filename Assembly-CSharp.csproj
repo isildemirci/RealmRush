@@ -61,6 +61,8 @@
      <Compile Include="Assets\Enemy\EnemyRoot.cs" />
      <Compile Include="Assets\Bank\Bank.cs" />
      <Compile Include="Assets\Tower\TowerRoot.cs" />
+     <Compile Include="Assets\Pathfinding\Node.cs" />
+     <Compile Include="Assets\Pathfinding\GridManager.cs" />
      <None Include="Assets\AssetPacks\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\AssetPacks\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\AssetPacks\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
