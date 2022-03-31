@@ -6,9 +6,9 @@ namespace Tower
     public class TargetLocator : MonoBehaviour
     {
         [SerializeField] private Transform weapon;
-        [SerializeField] private ParticleSystem projecttileParticles;
+        [SerializeField] private ParticleSystem projectileParticles;
         [SerializeField] private float range = 15f;
-        private Transform target;
+        private Transform _target;
 
         void Update()
         {
@@ -33,13 +33,13 @@ namespace Tower
                 }
             }
 
-            target = closestTarget;
+            _target = closestTarget;
         }
         
         void AimWeapon()
         {
-            float targetDistance = Vector3.Distance(transform.position, target.position);
-            weapon.LookAt(target);
+            float targetDistance = Vector3.Distance(transform.position, _target.position);
+            weapon.LookAt(_target);
 
             if (targetDistance < range)
             {
@@ -53,7 +53,7 @@ namespace Tower
 
         void Attack(bool isActive)
         {
-            var emissionModule = projecttileParticles.emission;
+            var emissionModule = projectileParticles.emission;
             emissionModule.enabled = isActive;
         }
     }

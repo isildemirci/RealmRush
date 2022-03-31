@@ -1,27 +1,58 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerRoot : MonoBehaviour
+namespace Tower
 {
-    [SerializeField] private int cost = 75;
-    
-    public bool CreateTower(TowerRoot tower, Vector3 position)
+    public class TowerRoot : MonoBehaviour
     {
-        Bank bank = FindObjectOfType<Bank>();
+        [SerializeField] private int cost = 75;
+        [SerializeField] private float buildDelay = 1f;
 
-        if (bank == null)
+        private void Start()
         {
+            StartCoroutine(Build());
+        }
+
+        public bool CreateTower(TowerRoot tower, Vector3 position)
+        {
+            Bank.Bank bank = FindObjectOfType<Bank.Bank>();
+
+            if (bank == null)
+            {
+                return false;
+            }
+
+            if (bank.CurrentBalance >= cost)
+            {
+                Instantiate(tower.gameObject, position, Quaternion.identity);
+                bank.Withdraw(cost);
+                return true;
+            }
+
             return false;
         }
 
-        if (bank.CurrentBalance >= cost)
+        IEnumerator Build()
         {
-            Instantiate(tower.gameObject, position, Quaternion.identity);
-            bank.Withdraw(cost);
-            return true;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+                foreach (Transform grandchild in child)
+                {
+                    grandchild.gameObject.SetActive(false);
+                }
+            }
+            
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+                yield return new WaitForSeconds(buildDelay);
+                foreach (Transform grandchild in child)
+                {
+                    grandchild.gameObject.SetActive(true);
+                }
+            }
         }
-
-        return false;
     }
 }

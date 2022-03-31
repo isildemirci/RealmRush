@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Enemy
@@ -7,20 +6,21 @@ namespace Enemy
     public class EnemyHealth : MonoBehaviour
     {
         [SerializeField] private int maxHitPoints = 5;
+        
         [Tooltip("Adds amount to maxHitPoints when enemy dies.")]
         [SerializeField] private int difficultyRamp = 1;
-        private int currentHitPoints = 5;
 
-        private EnemyRoot enemyRoot;
+        private int _currentHitPoints = 5;
+        private EnemyRoot _enemyRoot;
 
         void OnEnable()
         {
-            currentHitPoints = maxHitPoints;
+            _currentHitPoints = maxHitPoints;
         }
         
         private void Start()
         {
-            enemyRoot = GetComponent<EnemyRoot>();
+            _enemyRoot = GetComponent<EnemyRoot>();
         }
         
         private void OnParticleCollision(GameObject other)
@@ -30,13 +30,13 @@ namespace Enemy
 
         void ProcessHit()
         {
-            currentHitPoints--;
+            _currentHitPoints--;
 
-            if (currentHitPoints <= 0)
+            if (_currentHitPoints <= 0)
             {
                 gameObject.SetActive(false);
                 maxHitPoints += difficultyRamp;
-                enemyRoot.RewardGold();
+                _enemyRoot.RewardGold();
             }
         }
     }

@@ -1,49 +1,49 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
-public class Bank : MonoBehaviour
+namespace Bank
 {
-    [SerializeField] private int startingBalance = 150;
-    [SerializeField] private int currentBalance;
-    public int CurrentBalance { get { return currentBalance; } }
+    public class Bank : MonoBehaviour
+    {
+        [SerializeField] private int startingBalance = 150;
+        [SerializeField] private int currentBalance;
+        public int CurrentBalance => currentBalance;
 
-    [SerializeField] private TextMeshProUGUI displayBalance;
+        [SerializeField] private TextMeshProUGUI displayBalance;
     
-    private void Awake()
-    {
-        currentBalance = startingBalance;
-        UpdateDisplay();
-    }
-
-    public void Deposit(int amount)
-    {
-        currentBalance += Mathf.Abs(amount);
-        UpdateDisplay(); 
-    }
-
-    public void Withdraw(int amount)
-    {
-        currentBalance -= Mathf.Abs(amount);
-        UpdateDisplay();
-        
-        if (currentBalance < 0)
+        private void Awake()
         {
-            ReloadScene();
+            currentBalance = startingBalance;
+            UpdateDisplay();
         }
-    }
 
-    void UpdateDisplay()
-    {
-        displayBalance.text = "Gold: " + currentBalance;
-    }
+        public void Deposit(int amount)
+        {
+            currentBalance += Mathf.Abs(amount);
+            UpdateDisplay(); 
+        }
 
-    void ReloadScene()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex);
+        public void Withdraw(int amount)
+        {
+            currentBalance -= Mathf.Abs(amount);
+            UpdateDisplay();
+        
+            if (currentBalance < 0)
+            {
+                ReloadScene();
+            }
+        }
+
+        void UpdateDisplay()
+        {
+            displayBalance.text = "Gold: " + currentBalance;
+        }
+
+        void ReloadScene()
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.buildIndex);
+        }
     }
 }

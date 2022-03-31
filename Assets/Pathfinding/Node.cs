@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //pure c# class
-[System.Serializable]
-public class Node
+namespace Pathfinding
 {
-   public Vector2Int coordinates;
-   public bool isWalkable;
-   public bool isExplored;
-   public bool isPath;
-   public Node connectedTo;
-   
-   //constructor
-   public Node(Vector2Int coordinates, bool isWalkable)
+   [System.Serializable]
+   public class Node
    {
-      this.coordinates = coordinates;
-      this.isWalkable = isWalkable;
+      public Vector2Int coordinates;
+      public bool isWalkable;
+      public bool isExplored;
+      public bool isPath;
+      public Node connectedTo;
+   
+      //constructor
+      public Node(Vector2Int coordinates, bool isWalkable)
+      {
+         this.coordinates = coordinates;
+         this.isWalkable = isWalkable;
+      }
    }
 }

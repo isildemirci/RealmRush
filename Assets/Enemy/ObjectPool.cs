@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Enemy
         [SerializeField] [Range(0, 50)]private int poolSize;
         [SerializeField] [Range(0.1f, 30f)] private float spawnTimer;
 
-        private GameObject[] pool;
+        private GameObject[] _pool;
 
         private void Awake()
         {
@@ -25,22 +24,22 @@ namespace Enemy
 
         void PopulatePool()
         {
-            pool = new GameObject[poolSize];
+            _pool = new GameObject[poolSize];
 
-            for (int i = 0; i < pool.Length; i++)
+            for (int i = 0; i < _pool.Length; i++)
             {
-                pool[i] = Instantiate(enemyPrefab, transform);
-                pool[i].SetActive(false);
+                _pool[i] = Instantiate(enemyPrefab, transform);
+                _pool[i].SetActive(false);
             }
         }
 
         void EnableObjectInPool()
         {
-            for (int i = 0; i < pool.Length; i++)
+            for (int i = 0; i < _pool.Length; i++)
             {
-                if (pool[i].activeInHierarchy == false)
+                if (_pool[i].activeInHierarchy == false)
                 {
-                    pool[i].SetActive(true);
+                    _pool[i].SetActive(true);
                     return;
                 }
             }
